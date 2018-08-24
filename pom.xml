@@ -1,0 +1,224 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <parent>
+            <groupId>net.anotheria</groupId>
+            <artifactId>parent</artifactId>
+            <version>2.7</version>
+    </parent>
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>net.anotheria.tcl</groupId>
+	<artifactId>guitestbackend</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>GUI Backend</name>
+	<packaging>war</packaging>
+
+	<properties>
+		<moskito.version>2.8.7</moskito.version>
+		<aspectj-version>1.8.8</aspectj-version>
+		<aspectj-maven-plugin.version>1.8</aspectj-maven-plugin.version>
+		<aspectj-maven-plugin.complianceLevel>1.8</aspectj-maven-plugin.complianceLevel>
+		<source-version>1.8</source-version>
+		<target-version>1.8</target-version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-core</artifactId>
+			<version>${moskito.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-aop</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+		<dependency>
+			<groupId>net.anotheria</groupId>
+			<artifactId>moskito-webui</artifactId>
+			<version>${moskito.version}</version>
+		</dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-embedded</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+		<!-- REST Interface with jersey, Remove this if you want to deploy in jboss -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-inspect-jersey</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+        <!-- needed for mailgun provider, if you want to change the recipient edit moskito.json -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-notification-providers</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-disk-space-monitoring</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-monitoring-plugin</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <!-- Enable logback logging -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+
+		<!-- enable sampling api -->
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-sampling-api</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.anotheria</groupId>
+            <artifactId>moskito-php</artifactId>
+            <version>${moskito.version}</version>
+        </dependency>
+
+	</dependencies>
+
+	<build>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${source-version}</source>
+					<target>${target-version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<version>${aspectj-maven-plugin.version}</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjrt</artifactId>
+						<version>${aspectj-version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.aspectj</groupId>
+						<artifactId>aspectjtools</artifactId>
+						<version>${aspectj-version}</version>
+					</dependency>
+				</dependencies>
+				<configuration>
+					<aspectLibraries>
+						<aspectLibrary>
+							<groupId>net.anotheria</groupId>
+							<artifactId>moskito-aop</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+					<complianceLevel>${aspectj-maven-plugin.complianceLevel}</complianceLevel>
+					<source>${source-version}</source>
+					<target>${target-version}</target>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<warName>moskito</warName>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+						</resource>
+						<resource>
+							<directory>src/main/java</directory>
+							<includes>
+								<include>**/*.jsp</include>
+							</includes>
+
+						</resource>
+						<resource>
+							<directory>${project.build.directory}/tmp</directory>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+            </plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>jboss</id>
+		</profile>
+		<profile>
+			<id>webapp</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+                <!-- Add jersey rest interface -->
+                <dependency>
+                    <groupId>net.anotheria</groupId>
+                    <artifactId>moskito-inspect-jersey</artifactId>
+                    <version>${moskito.version}</version>
+                </dependency>
+			</dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>net.anotheria</groupId>
+                                    <artifactId>moskito-webui</artifactId>
+                                    <version>${moskito.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/tmp</outputDirectory>
+                                    <includes>moskito/**,**/*.jsp</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+		</profile>
+	</profiles>
+
+
+</project>
