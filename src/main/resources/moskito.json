@@ -77,7 +77,7 @@
         "statName": "failure",
         "valueName": "Counter",
         "intervalName": "1m"
-      },
+      }
 
 
     ],

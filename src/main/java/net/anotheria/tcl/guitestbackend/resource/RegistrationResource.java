@@ -22,6 +22,8 @@ import javax.ws.rs.core.MediaType;
 public class RegistrationResource extends BaseResource{
 
 	private RegistrationCounter registrationCounter = new RegistrationCounter();
+	private MailCounter mailCounter = new MailCounter();
+	private ConfirmationCounter confirmationCounter = new ConfirmationCounter();
 
 	@GET @Path("/registration/{success}/{userName}")
 	public ReplyObject registration(@PathParam("success") boolean success, @PathParam("userName") String userName){
@@ -32,4 +34,25 @@ public class RegistrationResource extends BaseResource{
 		setUserName(userName);
 		return ReplyObject.INSTANCE;
 	}
+
+	@GET @Path("/mail/{success}/{userName}")
+	public ReplyObject mail(@PathParam("success") boolean success, @PathParam("userName") String userName){
+		if (success)
+			mailCounter.success();
+		else
+			mailCounter.failure();
+		setUserName(userName);
+		return ReplyObject.INSTANCE;
+	}
+
+	@GET @Path("/confirmation/{success}/{userName}")
+	public ReplyObject confirmation(@PathParam("success") boolean success, @PathParam("userName") String userName){
+		if (success)
+			confirmationCounter.success();
+		else
+			confirmationCounter.failure();
+		setUserName(userName);
+		return ReplyObject.INSTANCE;
+	}
+
 }
