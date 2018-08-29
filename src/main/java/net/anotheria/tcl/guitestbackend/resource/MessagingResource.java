@@ -11,14 +11,15 @@ import javax.ws.rs.core.MediaType;
 @Monitor
 public class MessagingResource extends BaseResource{
 
-	private MessagingCounter messagingCounter = new MessagingCounter();
+	private MessagingOverviewCounter messagingOverviewCounter = new MessagingOverviewCounter();
+	private MessagingSystemMessageCounter messagingSystemMessageCounter = new MessagingSystemMessageCounter();
 
 	@GET @Path("/overview/{success}/{userName}")
 	public ReplyObject overview(@PathParam("success") boolean success, @PathParam("userName") String userName){
 		if (success)
-			messagingCounter.success();
+			messagingOverviewCounter.success();
 		else
-			messagingCounter.failure();
+			messagingOverviewCounter.failure();
 		setUserName(userName);
 		return ReplyObject.INSTANCE;
 	}
@@ -26,9 +27,9 @@ public class MessagingResource extends BaseResource{
 	@GET @Path("/systemmessage/{success}/{userName}")
 	public ReplyObject systemMessage(@PathParam("success") boolean success, @PathParam("userName") String userName){
 		if (success)
-			messagingCounter.success();
+			messagingSystemMessageCounter.success();
 		else
-			messagingCounter.failure();
+			messagingSystemMessageCounter.failure();
 		setUserName(userName);
 		return ReplyObject.INSTANCE;
 	}
