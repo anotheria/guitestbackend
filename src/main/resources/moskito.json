@@ -77,6 +77,34 @@
         "statName": "failure",
         "valueName": "Counter",
         "intervalName": "1m"
+      },
+      {
+        "namePattern": "$PRODUCERNAME.SUCCESS.15m",
+        "producerNamePattern": "(.*)Counter",
+        "statName": "success",
+        "valueName": "Counter",
+        "intervalName": "15m"
+      },
+      {
+        "namePattern": "$PRODUCERNAME.FAILURE.15m",
+        "producerNamePattern": "(.*)Counter",
+        "statName": "failure",
+        "valueName": "Counter",
+        "intervalName": "15m"
+      },
+      {
+        "namePattern": "$PRODUCERNAME.SUCCESS.1h",
+        "producerNamePattern": "(.*)Counter",
+        "statName": "success",
+        "valueName": "Counter",
+        "intervalName": "1h"
+      },
+      {
+        "namePattern": "$PRODUCERNAME.FAILURE.1h",
+        "producerNamePattern": "(.*)Counter",
+        "statName": "failure",
+        "valueName": "Counter",
+        "intervalName": "1h"
       }
 
 
@@ -417,17 +445,43 @@
         "@charts": [],
         "@chartPatterns": [
           {
-            "caption": "Counter Success",
+            "caption": "Counter Success 1m",
             "accumulatorPatterns": [
               "(.*)Counter.SUCCESS.1m"
             ]
           },
           {
-            "caption": "Counter Failures",
+            "caption": "Counter Failures 1m",
             "accumulatorPatterns": [
               "(.*)Counter.FAILURE.1m"
             ]
+          },
+          {
+            "caption": "Counter Success 15m",
+            "accumulatorPatterns": [
+              "(.*)Counter.SUCCESS.15m"
+            ]
+          },
+          {
+            "caption": "Counter Failures 15m",
+            "accumulatorPatterns": [
+              "(.*)Counter.FAILURE.15m"
+            ]
+          },
+          {
+            "caption": "Counter Success 1h",
+            "accumulatorPatterns": [
+              "(.*)Counter.SUCCESS.1h"
+            ]
+          },
+          {
+            "caption": "Counter Failures 1h",
+            "accumulatorPatterns": [
+              "(.*)Counter.FAILURE.1h"
+              "(.*)Counter.FAILURE.1h"
+            ]
           }
+
 
         ],
         "@producerNamePatterns": [
