@@ -478,7 +478,6 @@
             "caption": "Counter Failures 1h",
             "accumulatorPatterns": [
               "(.*)Counter.FAILURE.1h"
-              "(.*)Counter.FAILURE.1h"
             ]
           }
 
