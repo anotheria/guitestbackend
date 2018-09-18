@@ -99,6 +99,11 @@
             <version>${moskito.version}</version>
         </dependency>
 
+		<dependency>
+			<groupId>com.github.seratch</groupId>
+			<artifactId>jslack</artifactId>
+			<version>1.0.8</version>
+		</dependency>
 
 	</dependencies>
 
