@@ -305,27 +305,27 @@
         //timeUnit can be ignored here
         "@guards": [
           {
-            "value": "100000000",
+            "value": "1000000",
             "direction": "UP",
             "status": "GREEN"
           },
           {
-            "value": "50000000",
+            "value": "500000",
             "direction": "DOWN",
             "status": "YELLOW"
           },
           {
-            "value": "10000000",
+            "value": "100000",
             "direction": "DOWN",
             "status": "ORANGE"
           },
           {
-            "value": "2000000",
+            "value": "20000",
             "direction": "DOWN",
             "status": "RED"
           },
           {
-            "value": "1000000",
+            "value": "1000",
             "direction": "DOWN",
             "status": "PURPLE"
           }
