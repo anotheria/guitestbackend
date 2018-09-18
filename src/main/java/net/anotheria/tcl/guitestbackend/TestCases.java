@@ -7,6 +7,8 @@ public enum TestCases {
     REGISTRATION_MEMBER_PAGE("Registration member page"),
     PAYMENT_SELECT("Payment select"),
     PAYMENT_DETAILS("Payment details"),
+    MESSAGING_OVERVIEW("Messaging overview"),
+    MESSAGING_SYSTEM_MESSAGE("Messaging system message"),
 
 
 
