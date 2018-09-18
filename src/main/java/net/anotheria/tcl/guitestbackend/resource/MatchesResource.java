@@ -1,6 +1,7 @@
 package net.anotheria.tcl.guitestbackend.resource;
 
 import net.anotheria.moskito.aop.annotation.Monitor;
+import net.anotheria.tcl.guitestbackend.TestCases;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -15,10 +16,13 @@ public class MatchesResource extends BaseResource{
 
 	@GET @Path("/matches/{success}/{userName}")
 	public ReplyObject matches(@PathParam("success") boolean success, @PathParam("userName") String userName){
-		if (success)
+		if (success) {
 			matchesCounter.success();
-		else
+		}
+		else {
 			matchesCounter.failure();
+			notificationSlackSender.sendMessage(userName, TestCases.MATCHES_MATCHES, success);
+		}
 		setUserName(userName);
 		return ReplyObject.INSTANCE;
 	}
