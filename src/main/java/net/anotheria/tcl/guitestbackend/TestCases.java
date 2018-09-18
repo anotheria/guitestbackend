@@ -9,9 +9,7 @@ public enum TestCases {
     PAYMENT_DETAILS("Payment details"),
     MESSAGING_OVERVIEW("Messaging overview"),
     MESSAGING_SYSTEM_MESSAGE("Messaging system message"),
-    MATCHES_MATCHES("Matches"),
-
-
+    MATCHES_MATCHES("Matches");
 
 
     private String caseName;
