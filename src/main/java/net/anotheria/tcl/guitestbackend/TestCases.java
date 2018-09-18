@@ -4,7 +4,11 @@ public enum TestCases {
     REGISTRATION_REGISTRATION("Registration"),
     REGISTRATION_EMAIL("Registration email"),
     REGISTRATION_CONFIRMATION("Registration confirmation"),
-    REGISTRATION_MEMBER_PAGE("Registration member page");
+    REGISTRATION_MEMBER_PAGE("Registration member page"),
+    PAYMENT_SELECT("Payment select"),
+    PAYMENT_DETAILS("Payment details"),
+
+
 
     private String caseName;
     private static final String CASE_NAME_END = " test case";

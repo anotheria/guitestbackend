@@ -28,7 +28,6 @@ public class RegistrationResource extends BaseResource {
     private MailCounter mailCounter = new MailCounter();
     private ConfirmationCounter confirmationCounter = new ConfirmationCounter();
     private MemberPageCounter memberPageCounter = new MemberPageCounter();
-    private NotificationSlackSender notificationSlackSender = NotificationSlackSender.getInstance();
 
     @GET
     @Path("/registration/{success}/{userName}")
