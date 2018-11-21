@@ -40,7 +40,7 @@ public class NotificationSlackSender {
             String text = "";
             text += resultMessage.getTestCase().getCaseName() + " " + resultMessage.getStatus() + "\r\n";
             text += "User : " + resultMessage.getUserName() + "\r\n";
-            text += "Creation Timestamp : " + resultMessage.getUserName().split("@")[0].split("-")[1];
+            text += "Creation Timestamp : " + getTimestampFromUsername(resultMessage.getUserName());
 
             List<Attachment> attachments = new LinkedList<>();
             attachments.add(Attachment.builder().title(text).color(resultMessage.isSuccess() ? "good" : "danger").build());
@@ -58,6 +58,14 @@ public class NotificationSlackSender {
             }
         } catch (SlackApiException | IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private String getTimestampFromUsername(String userName) {
+        try {
+            return userName.split("@")[0].split("-")[1];
+        }catch (Exception e){
+            return String.valueOf(System.currentTimeMillis());
         }
     }
 
