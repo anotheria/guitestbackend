@@ -27,7 +27,7 @@ public class NotificationSlackSender {
     private String slackChannel;
 
     public static void main(String... a) throws MalformedURLException {
-        new NotificationSlackSender().sendMessage(new CaseResultMessage("catchall-1536278401658@adoptix.de", TestCases.REGISTRATION_REGISTRATION, false));
+        new NotificationSlackSender().sendMessage(new CaseResultMessage("slack messages missing test", TestCases.REGISTRATION_REGISTRATION, false));
     }
 
     private NotificationSlackSender() {
